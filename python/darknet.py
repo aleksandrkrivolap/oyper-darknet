@@ -140,10 +140,10 @@ def detect(net, meta, im, thresh=.5, hier_thresh=.5, nms=.45):
     pnum = pointer(num)
     predict_image(net, im)
     dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, None, 0, pnum)
-    print("Got detections")
+    # print("Got detections")
     num = pnum[0]
     if (nms): do_nms_obj(dets, num, meta.classes, nms)
-    print("NMS done")
+    # print("NMS done")
     res = []
     for j in range(num):
         for i in range(meta.classes):
@@ -151,9 +151,9 @@ def detect(net, meta, im, thresh=.5, hier_thresh=.5, nms=.45):
                 b = dets[j].bbox
                 res.append((meta.names[i], dets[j].prob[i], (b.x, b.y, b.w, b.h)))
     res = deepcopy(sorted(res, key=lambda x: -x[1]))
-    print("Dealocating image")
+    # print("Dealocating image")
     free_image(im)
-    print("Deallocating detections")
+    # print("Deallocating detections")
     free_detections(dets, num)
     return res
 
